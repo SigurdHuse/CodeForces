@@ -4,6 +4,7 @@
 #define f first  
 #define s second
 #define SZ(a) (int)a.size()
+#define bit(x,i)(((x)>>(i))&1)
 typedef long long ll;
 using namespace std; 
 
@@ -11,9 +12,14 @@ void solve(){
 	
 }
 
+
 int main()
 {
 	ios::sync_with_stdio(false); cin.tie(0);
-	solve();
+	int tt;
+	cin >> tt;
+	while(tt--){
+		solve();
+	}
 }
 

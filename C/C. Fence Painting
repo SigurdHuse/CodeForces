@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for(int i = 0; i< (n);i++)
+#define all(x) (x).begin(), (x).end()
+#define f first  
+#define s second
+#define SZ(a) (int)a.size()
+#define bit(x,i)(((x)>>(i))&1)
+typedef long long ll;
+using namespace std; 
+
+// We go backwards
+
+void solve(){
+	int n, m; cin >> n >> m;
+	vector<int> ans, a(n), c(m);
+	vector<set<int>> b(n+1);
+	for(int i = 0; i < n; ++i){
+		cin >> a[i];
+	}
+	int x, wrong = 0;
+	for(int i = 0; i < n; ++i){
+		cin >> x;
+		if(a[i] != x){
+			wrong++;
+			b[x].insert(i);
+		}
+	}
+	for(auto &e : c) cin >> e;
+	
+	if(SZ(b[c.back()]) == 0){
+		cout << "NO" << endl;
+		return;
+	}
+	
+	if(wrong == 0){
+		cout << "YES" << endl;
+		REP(i,m) cout << *b[c.back()].begin() + 1 << " ";
+		cout << endl;
+		return;
+	}
+	
+	
+	int last;
+	auto it = 
+	 
+	for(int i = m-2; i>= 0; --i){
+		
+	}
+	
+	
+}
+
+
+int main()
+{
+	ios::sync_with_stdio(false); cin.tie(0);
+	int tt;
+	cin >> tt;
+	while(tt--){
+		solve();
+	}
+}
+
