@@ -1,0 +1,45 @@
+// Algo for finding stronly connected components
+
+const int M = 1e9 + 7, mx = 200000;
+vector<int> edge[mx];
+
+int low[mx], dtime[mx], dfstime, _stack[mx], _size, comp[mx], comps;
+bool instack[mx];
+
+int mini[mx], cnt[mx], cost[mx];
+
+void tarjan(int u){
+	low[u] = dtime[u] = ++dfstime;
+	_stack[_size++] = u;
+	instack[u] = true;
+	
+	for(int i = 0; i < SZ(edge[u]); ++i){
+		int v = edge[u][i];
+		if(dtime[v] == -1){
+			tarjan(v);
+			low[u] = min(low[u], low[v]);
+		}
+		else if(instack[v]){
+			low[u] = min(low[u], dtime[v]);
+		}
+	}	
+	if(dtime[u] == low[u]){
+		comps++;
+		int v = -1;
+		do{
+			v = _stack[--_size];
+			instack[v] = false;
+			comp[v] = comps;
+		}while(u != v);
+	}
+}
+
+void scc(int n){
+	comps = dfstime = _size = 0;
+	memset(dtime, -1, sizeof dtime);
+	memset(low, 0, sizeof low);
+	memset(_stack, 0, sizeof _stack);
+	memset(comp, 0, sizeof comp);
+	memset(instack, 0, sizeof instack);
+	REP(i,n) if(dtime[i] == -1) tarjan(i);
+}
