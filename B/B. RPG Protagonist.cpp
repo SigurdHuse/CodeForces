@@ -18,13 +18,6 @@ void solve(){
 	
 	int one = 0, two = 0;
 	
-	while((p > 0) && (f > 0) && ((sword > 0) || (axe > 0)){
-		if(sword == 0){
-			
-		}
-		
-		
-	}
 	
 	
 }

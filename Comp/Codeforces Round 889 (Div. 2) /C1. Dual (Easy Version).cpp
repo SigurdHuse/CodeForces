@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+#define REP(i,n) for(int i = 0; i< (n);i++)
+#define all(x) (x).begin(), (x).end()
+#define f first  
+#define s second
+#define SZ(a) (int)a.size()
+#define bit(x,i)(((x)>>(i))&1)
+typedef long long ll;
+using namespace std; 
+
+void solve(){
+	int n;
+	cin >> n;
+	vector<int> v(n);
+	for(auto &x : v) cin >> x;
+	vector<pair<int,int>> ans;
+	
+	for(int i = n-1; i > 0; --i){
+		
+	}
+	for(int i : v) cout << i << " ";
+	cout << "\n";
+	cout << SZ(ans) << "\n";
+	for(auto p : ans){
+		cout << p.f << " " << p.s << "\n";
+	}
+	
+}
+
+
+int main()
+{
+	ios::sync_with_stdio(false); cin.tie(0);
+	int tt;
+	cin >> tt;
+	while(tt--){
+		solve();
+	}
+}
+

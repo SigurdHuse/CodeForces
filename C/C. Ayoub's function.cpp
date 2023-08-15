@@ -9,7 +9,16 @@ typedef long long ll;
 using namespace std; 
 
 void solve(){
+	ll n, m; cin >> n >> m;
+	ll ans = (n + 1)*n/2;
 	
+	ll z = n - m;
+	ll k = z / (m+1);
+	
+	ans -= (m + 1)*k * (k+1) / 2ll;
+	ans -= (z % (m + 1)) * (k+1);
+	
+	cout << ans << endl;
 }
 
 

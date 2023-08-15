@@ -11,33 +11,22 @@ using namespace std;
 void solve(){
 	int n; cin >> n;
 	string a, b; cin >> a >> b;
-	bool flipped = 0;
-	int idx = n-1;
-	for(int i = n-1; i > 0; --i){
-		if(flipped){
-			if(a[idx] == b[i]){
-				if(a[0] == b[i]){
-					a[0] = (a[i] == '1' ? '1' : '0');
-					cout << 1 << " ";
-				}
-				cout << i+1 << " ";
-				flipped ^= 1;
-			}
-		}
-		else{
-			if(a[i] != b[i]){
-				if(a[0] == b[i]){
-					a[0] = (a[i] == '1' ? '0' : '1');
-					cout << 1 << " ";
-				}
-				cout << i+1 << " ";
-				flipped ^= 1;
-			}
-		}
-	}
-	if(a[0] != b[0]) cout << "1 ";
-	cout << endl;
 	
+	vector<int> ops1, ops2;
+	a += '0'; b += '0';
+	
+	for(int i = 1; i <= n; ++i){
+		if(a[i] != a[i-1]) ops1.push_back(i);
+		if(b[i] != b[i-1]) ops2.push_back(i);
+	}
+	
+	ops1.insert(ops1.end(), ops2.rbegin(), ops2.rend());
+	cout << SZ(ops1);
+	
+	for(int x : ops1){
+		cout << " " << x;
+	}
+	cout << "\n";
 }
 
 
