@@ -8,17 +8,26 @@
 typedef long long ll;
 using namespace std; 
 
+ll f(ll x, ll n, ll m){
+	ll res = 0;
+	--x;
+	for(ll i = 1; i <= n; ++i) res += min(m, x/i);
+	return res; 
+}
+
 void solve(){
-	vector<ll> v(3);
-	for(auto &x : v) cin >> x;
-	sort(all(v));
+	ll n, m, k; cin >> n >> m >> k;
+	ll l = 1, r = n*(m+1);
 	
-	if(v[2] >= 2*(v[0] + v[1])){
-		cout << v[0] + v[1];
-		return;
+	while(l < r){
+		ll x = (l + r) / 2;
+		
+		if(f(x,n,m) < k){
+			l = x + 1;
+		}
+		else r = x;
 	}
-	
-	cout << (v[0] + v[1] + v[2])/3;
+	cout << l - 1 << "\n";
 }
 
 int main()

@@ -9,21 +9,32 @@ typedef long long ll;
 using namespace std; 
 
 void solve(){
-	vector<ll> v(3);
-	for(auto &x : v) cin >> x;
-	sort(all(v));
+	int n; cin >> n;
+	string s; cin >> s;
 	
-	if(v[2] >= 2*(v[0] + v[1])){
-		cout << v[0] + v[1];
-		return;
+	int ans = 0;
+	REP(i, 50) s += "*";
+	
+	for(int i = 1; i < n; ++i){
+		if(s[i] == '@'){
+			ans++;
+			continue;
+		}
+		if(s[i] == '*'){
+			if(s[i+1] == '*') break;
+		}
 	}
-	
-	cout << (v[0] + v[1] + v[2])/3;
+	cout << ans << "\n";
 }
+
 
 int main()
 {
 	ios::sync_with_stdio(false); cin.tie(0);
-	solve();
+	int tt;
+	cin >> tt;
+	while(tt--){
+		solve();
+	}
 }
 
