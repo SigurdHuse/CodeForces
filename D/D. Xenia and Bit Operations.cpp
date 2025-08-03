@@ -8,39 +8,67 @@
 typedef long long ll;
 using namespace std; 
 
+const int N = 2e5 + 5;
+
+int t[4*N];
+
+// op = 0 -> OR
+// op = 1 -> XOR 
+
+void build(int a[], int v, int tl, int tr, int op){
+	if (tl == tr) {
+        t[v] = a[tl];
+    }
+    else {
+        int tm = (tl + tr) / 2;
+        build(a, v*2, tl, tm, (op + 1) % 2);
+        build(a, v*2+1, tm+1, tr, (op + 1) % 2);
+        
+        //cout << v << " " << op << endl;
+        if(op == 1)t[v] = (t[v*2] ^ t[v*2+1]);
+        else t[v] = (t[v*2] | t[v*2+1]);
+    }
+}
+
+// int v, int tl, int tr, int l, int r
+int find_v() {
+    return t[1];
+}
+
+
+void update(int v, int tl, int tr, int pos, int new_val, int op) {
+    if (tl == tr) {
+        t[v] = new_val;
+    } else {
+        int tm = (tl + tr) / 2;
+        
+        if (pos <= tm)
+            update(v*2, tl, tm, pos, new_val, (op + 1) % 2);
+        else
+            update(v*2+1, tm+1, tr, pos, new_val, (op + 1) % 2);
+        
+        if(op == 1)t[v] = (t[v*2] ^ t[v*2+1]);
+        else t[v] = (t[v*2] | t[v*2+1]);
+    }
+}
+
+
 void solve(){
-	int n, m; cin >> n >> m;
-	vector<vector<int>> a(n+1, vector<int>(1 << n));
-	for(auto &x : a[0]) cin >> x;
-	for(int i = 1; i < n+1; ++i){
-		if(i & 1){
-			for(int k = 0, j = 0; j < (1 << (n -i + 1)); j += 2, k++){
-				a[i][k] = (a[i-1][j] | a[i-1][j+1]);
-			}
-		}
-		else{
-			for(int k = 0, j = 0; j < (1 << (n -i + 1)); j += 2, k++){
-				a[i][k] = (a[i-1][j] ^ a[i-1][j+1]);
-			}
-		}
-	}
-	int p, b;
-	while(m--){
-		cin >> p >> b;
-		p--;
-		a[0][p] = b;
-		for(int i = 1; i < n+1; ++i){
-			if(p & 1){
-				if(i & 1) a[i][p/2] = (a[i-1][p-1] | a[i-1][p]);
-				else a[i][p/2] = (a[i-1][p-1] ^ a[i-1][p]);
-			}
-			else{
-				if(i & 1) a[i][p/2] = (a[i-1][p+1] | a[i-1][p]);
-				else a[i][p/2] = (a[i-1][p+1] ^ a[i-1][p]);
-			}
-			p /= 2;
-		}
-		cout << a[n][0] << endl;
+	int e,m;cin >> e >> m;
+	int n = 1 << e;
+	int arr[n];
+	
+	REP(i,n) cin>> arr[i];
+	
+	build(arr, 1, 0, n-1, (e & 1) ^ 1);
+	//for(int i = 1; i <= 4*n; ++i){
+		//cout << t[i] << " ";
+	//}
+	//cout << endl;
+	for(int i = 0; i < m; ++i){
+		int p, b; cin >> p >> b;
+		update(1, 0, n-1, p-1, b, (e & 1) ^ 1);
+		cout << find_v() << "\n";
 	}
 }
 
